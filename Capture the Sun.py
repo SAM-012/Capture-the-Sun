@@ -8,15 +8,15 @@ from cvzone.HandTrackingModule import HandDetector
 pygame.init()
 window = pygame.display.set_mode((1280, 720))
 clock = pygame.time.Clock()
-pygame.display.set_caption("balloon pop")
+pygame.display.set_caption("Capture The Sun")
 #webcam
 cap = cv2.VideoCapture(0)
 cap.set(3,1280)
 cap.set(4,720)
 #images
-imgBalloon = pygame.image.load(r"C:\Users\Sam\Desktop\bollon.png").convert_alpha()
-rectBalloon = imgBalloon.get_rect()
-rectBalloon.x,rectBalloon.y= 500,500
+img = pygame.image.load(r"C:\Users\Sam\Desktop\sun.png").convert_alpha()
+rectSun = img.get_rect()
+rectSun.x,rectSun.y= 500,500
 #variables
 speed = 15
 score = 0
@@ -24,9 +24,9 @@ startTime = time.time()
 totalTime = 100
 #hand Detection
 detector =HandDetector(detectionCon=0.8, maxHands=2)
-def resetBalloon():
-    rectBalloon.x= random.randint(100,img.shape[1]-100)
-    rectBalloon.y=img.shape[0]+50
+def resetSun():
+    rectSun.x= random.randint(100,img.shape[1]-100)
+    rectSun.y=img.shape[0]+50
 running = True
 while running:
     # poll for events
@@ -60,11 +60,10 @@ while running:
 
         # flip() the display to put your work on window
         # pygame.display.flip()
-        rectBalloon.y -= speed  # Move the  balloon up
-        # Check if balloon has reached the top without pop
+        rectSun.y -= speed  
 
-        if rectBalloon.y < 0:
-            resetBalloon()
+        if rectSun.y < 0:
+            resetSun()
             speed += 5
 
         if hands:
@@ -73,8 +72,8 @@ while running:
             x, y = values[0], values[1]  # Extract x and y coordinates
 
             # Check if the balloon collides with the hand landmark
-            if rectBalloon.collidepoint(x, y):
-                resetBalloon()
+            if rectSun.collidepoint(x, y):
+                resetSun()
                 score += 10
                 speed += 1
 
@@ -84,7 +83,7 @@ while running:
         frame = pygame.transform.flip(frame, True, False)
         window.blit(frame, (0, 0))
 
-        window.blit(imgBalloon, rectBalloon)
+        window.blit(img, rectBalloon)
 
       
         font = pygame.font.Font(r'C:\Users\Sam\Desktop\g1.ttf', 50)
