@@ -26,7 +26,7 @@ totalTime = 100
 detector =HandDetector(detectionCon=0.8, maxHands=2)
 def resetSun():
     rectSun.x= random.randint(100,img.shape[1]-100)
-    rectSun.y=img.shape[0]+50
+    rectSun.y=img.shape[0]+050
 running = True
 while running:
     # poll for events
