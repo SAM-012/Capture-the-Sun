@@ -29,13 +29,10 @@ def resetSun():
     rectSun.y=img.shape[0]+050
 running = True
 while running:
-    # poll for events
-    # pygame.QUIT event means the user clicked X to close your window
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
             pygame.quit()
-    # Apply Logics
     timeRemain = int(totalTime -(time.time()-startTime))
     if timeRemain <0:
         window.fill((255,255,255))
@@ -46,20 +43,9 @@ while running:
         window.blit(textTime, (530, 275))
 
     else:
-
-        # fill the window with a color to wipe away anything from           last frame
-        # window.fill("white")
-        # open camera (cv)
         success, img = cap.read()
         img = cv2.flip(img, 1)  # flip image horozontal(1) for 0 it's verticle
-        # find Hands programs
         hands, img = detector.findHands(img, flipType=False)
-
-        # RENDER YOUR GAME HERE
-        # logic here
-
-        # flip() the display to put your work on window
-        # pygame.display.flip()
         rectSun.y -= speed  
 
         if rectSun.y < 0:
@@ -70,8 +56,6 @@ while running:
             hand = hands[0]
             values = hand["lmList"][8]
             x, y = values[0], values[1]  # Extract x and y coordinates
-
-            # Check if the balloon collides with the hand landmark
             if rectSun.collidepoint(x, y):
                 resetSun()
                 score += 10
@@ -92,6 +76,5 @@ while running:
         textTime = font.render(f'Time: {timeRemain}', True, (50, 50, 255))
         window.blit(textScore, (35, 35))
         window.blit(textTime, (1000, 35))
-
     pygame.display.update()
-    clock.tick(30)  # limits FPS to 60 
+    clock.tick(30)
