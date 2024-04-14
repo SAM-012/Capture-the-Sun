@@ -4,25 +4,20 @@ import cv2
 import numpy as np
 import pygame
 from cvzone.HandTrackingModule import HandDetector
-# pygame setup
 pygame.init()
 window = pygame.display.set_mode((1280, 720))
 clock = pygame.time.Clock()
 pygame.display.set_caption("Capture The Sun")
-#webcam
 cap = cv2.VideoCapture(0)
 cap.set(3,1280)
 cap.set(4,720)
-#images
 img = pygame.image.load(r"C:\Users\Sam\Desktop\sun.png").convert_alpha()
 rectSun = img.get_rect()
 rectSun.x,rectSun.y= 500,500
-#variables
 speed = 15
 score = 0
 startTime = time.time()
 totalTime = 100
-#hand Detection
 detector =HandDetector(detectionCon=0.8, maxHands=2)
 def resetSun():
     rectSun.x= random.randint(100,img.shape[1]-100)
@@ -66,10 +61,7 @@ while running:
         frame = pygame.surfarray.make_surface(imgRGB).convert()
         frame = pygame.transform.flip(frame, True, False)
         window.blit(frame, (0, 0))
-
         window.blit(img, rectBalloon)
-
-      
         font = pygame.font.Font(r'C:\Users\Sam\Desktop\g1.ttf', 50)
 
         textScore = font.render(f'Score: {score}', True, (50, 50, 255))
