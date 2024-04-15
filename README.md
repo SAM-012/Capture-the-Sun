@@ -2,6 +2,7 @@
 
 This is a simple Python game where you pop the sun with your hand!
 Requirements
+Package
 
     Python 3
     Pygame
